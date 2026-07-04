@@ -4,7 +4,7 @@
 
 - Manuel Bunay
 
-## Repo
+## Repositorio
 
 https://github.com/mgbunay2015/Microservicios_examen
 
