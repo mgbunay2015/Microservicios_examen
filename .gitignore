@@ -8,3 +8,4 @@ target/
 *.log
 temp_*.mp4
 concat_list.txt
+.vscode/
