@@ -6,7 +6,9 @@
 
 ## Video
 
-`video/videoExamen.mp4`
+Carpeta: [video/](https://github.com/mgbunay2015/Microservicios_examen/tree/main/video)
+
+Archivo: [videoExamen.mp4](https://github.com/mgbunay2015/Microservicios_examen/blob/main/video/videoExamen.mp4)
 
 ## Repo
 
