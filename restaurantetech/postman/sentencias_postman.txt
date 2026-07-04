@@ -1,28 +1,4 @@
-================================================================================
-  RESTAURANTETECH — SENTENCIAS POSTMAN
-  Evaluación Práctica Microservicios
-================================================================================
-
-BASE URL (API Gateway Nginx):  http://localhost:8080
-
-IMPORTANTE:
-  - Todos los requests pasan por el puerto 8080 (Gateway).
-  - NO usar directamente los puertos 8081, 8082 ni 8083.
-  - Antes de crear pedidos, registrar inventario para cada plato.
-
-Categorías válidas de platos: ENTRADA | PLATO_FUERTE | POSTRE | BEBIDA
-
-================================================================================
-  SECCIÓN 1 — svc-menu (Gestión de platos)
-================================================================================
-
---------------------------------------------------------------------------------
-[1.1] POST — Crear plato: Seco de pollo
-      Registra un plato fuerte ecuatoriano en el catálogo del menú.
-      Respuesta esperada: 201 Created (devuelve el plato con su id).
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/menu/platos
+POST http://localhost:8080/api/menu/dishes
 Content-Type: application/json
 
 {
@@ -33,14 +9,7 @@ Content-Type: application/json
   "available": true
 }
 
-
---------------------------------------------------------------------------------
-[1.2] POST — Crear plato: Locro de papa (Entrada)
-      Registra una entrada ecuatoriana en el menú. Demuestra categoría ENTRADA.
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/menu/platos
+POST http://localhost:8080/api/menu/dishes
 Content-Type: application/json
 
 {
@@ -51,14 +20,7 @@ Content-Type: application/json
   "available": true
 }
 
-
---------------------------------------------------------------------------------
-[1.3] POST — Crear plato: Quimbolito (Postre)
-      Registra un postre ecuatoriano en el menú. Demuestra categoría POSTRE.
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/menu/platos
+POST http://localhost:8080/api/menu/dishes
 Content-Type: application/json
 
 {
@@ -69,14 +31,7 @@ Content-Type: application/json
   "available": true
 }
 
-
---------------------------------------------------------------------------------
-[1.4] POST — Crear plato: Colada morada (Bebida)
-      Registra una bebida tradicional ecuatoriana. Demuestra categoría BEBIDA.
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/menu/platos
+POST http://localhost:8080/api/menu/dishes
 Content-Type: application/json
 
 {
@@ -87,32 +42,11 @@ Content-Type: application/json
   "available": true
 }
 
+GET http://localhost:8080/api/menu/dishes
 
---------------------------------------------------------------------------------
-[1.5] GET — Listar todos los platos
-      Obtiene el catálogo completo del restaurante.
-      Respuesta esperada: 200 OK (lista de platos).
---------------------------------------------------------------------------------
+GET http://localhost:8080/api/menu/dishes/1
 
-GET http://localhost:8080/api/menu/platos
-
-
---------------------------------------------------------------------------------
-[1.6] GET — Obtener plato por ID
-      Consulta un plato específico. Cambiar "1" por el id deseado.
-      Respuesta esperada: 200 OK o 404 si no existe.
---------------------------------------------------------------------------------
-
-GET http://localhost:8080/api/menu/platos/1
-
-
---------------------------------------------------------------------------------
-[1.7] PUT — Actualizar plato
-      Modifica nombre, descripción, categoría, precio o disponibilidad.
-      Respuesta esperada: 200 OK (plato actualizado).
---------------------------------------------------------------------------------
-
-PUT http://localhost:8080/api/menu/platos/1
+PUT http://localhost:8080/api/menu/dishes/1
 Content-Type: application/json
 
 {
@@ -123,14 +57,7 @@ Content-Type: application/json
   "available": true
 }
 
-
---------------------------------------------------------------------------------
-[1.8] PUT — Marcar plato como NO disponible
-      Desactiva el Locro de papa del menú. Usar antes del test de error 400 en pedidos.
-      Respuesta esperada: 200 OK.
---------------------------------------------------------------------------------
-
-PUT http://localhost:8080/api/menu/platos/2
+PUT http://localhost:8080/api/menu/dishes/2
 Content-Type: application/json
 
 {
@@ -141,27 +68,9 @@ Content-Type: application/json
   "available": false
 }
 
+DELETE http://localhost:8080/api/menu/dishes/1
 
---------------------------------------------------------------------------------
-[1.9] DELETE — Eliminar plato
-      Elimina un plato del catálogo permanentemente.
-      Respuesta esperada: 204 No Content (sin cuerpo en la respuesta).
---------------------------------------------------------------------------------
-
-DELETE http://localhost:8080/api/menu/platos/1
-
-
-================================================================================
-  SECCIÓN 2 — svc-inventory (Gestión de inventario — Punto extra)
-================================================================================
-
---------------------------------------------------------------------------------
-[2.1] POST — Registrar inventario del plato 1 (Seco de pollo)
-      Asigna stock inicial al plato. OBLIGATORIO antes de crear pedidos.
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/inventario
+POST http://localhost:8080/api/inventory
 Content-Type: application/json
 
 {
@@ -169,14 +78,7 @@ Content-Type: application/json
   "stockQuantity": 10
 }
 
-
---------------------------------------------------------------------------------
-[2.2] POST — Registrar inventario del plato 2 (Locro de papa)
-      Registra stock para el Locro de papa (plato id 2).
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/inventario
+POST http://localhost:8080/api/inventory
 Content-Type: application/json
 
 {
@@ -184,14 +86,7 @@ Content-Type: application/json
   "stockQuantity": 8
 }
 
-
---------------------------------------------------------------------------------
-[2.3] POST — Registrar inventario del plato 3 (Quimbolito)
-      Registra stock para el Quimbolito (plato id 3).
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/inventario
+POST http://localhost:8080/api/inventory
 Content-Type: application/json
 
 {
@@ -199,51 +94,18 @@ Content-Type: application/json
   "stockQuantity": 6
 }
 
+GET http://localhost:8080/api/inventory
 
---------------------------------------------------------------------------------
-[2.4] GET — Listar todo el inventario
-      Muestra el stock de todos los platos registrados.
-      Respuesta esperada: 200 OK (lista de items de inventario).
---------------------------------------------------------------------------------
+GET http://localhost:8080/api/inventory/1
 
-GET http://localhost:8080/api/inventario
-
-
---------------------------------------------------------------------------------
-[2.5] GET — Consultar stock de un plato
-      Verifica cuántas unidades quedan disponibles de un plato.
-      Respuesta esperada: 200 OK o 404 si no hay inventario registrado.
---------------------------------------------------------------------------------
-
-GET http://localhost:8080/api/inventario/1
-
-
---------------------------------------------------------------------------------
-[2.6] PUT — Decrementar stock manualmente
-      Reduce el stock directamente (svc-orders también lo hace al crear pedidos).
-      Respuesta esperada: 200 OK con stock actualizado.
---------------------------------------------------------------------------------
-
-PUT http://localhost:8080/api/inventario/1
+PUT http://localhost:8080/api/inventory/1
 Content-Type: application/json
 
 {
   "quantity": 2
 }
 
-
-================================================================================
-  SECCIÓN 3 — svc-orders (Gestión de pedidos)
-================================================================================
-
---------------------------------------------------------------------------------
-[3.1] POST — Crear pedido válido
-      Crea un pedido. svc-orders consulta svc-menu (precio/disponibilidad)
-      y svc-inventory (stock). Calcula total = price × quantity.
-      Respuesta esperada: 201 Created (ej: total = 29.0 si price=14.50 y qty=2).
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -252,14 +114,7 @@ Content-Type: application/json
   "quantity": 2
 }
 
-
---------------------------------------------------------------------------------
-[3.2] POST — Crear pedido (Mesa 10)
-      Segundo pedido de ejemplo para demostrar múltiples órdenes.
-      Respuesta esperada: 201 Created.
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -268,38 +123,11 @@ Content-Type: application/json
   "quantity": 1
 }
 
+GET http://localhost:8080/api/orders
 
---------------------------------------------------------------------------------
-[3.3] GET — Listar todos los pedidos
-      Obtiene el historial completo de pedidos registrados.
-      Respuesta esperada: 200 OK (lista de pedidos).
---------------------------------------------------------------------------------
+GET http://localhost:8080/api/orders/1
 
-GET http://localhost:8080/api/pedidos
-
-
---------------------------------------------------------------------------------
-[3.4] GET — Obtener pedido por ID
-      Consulta un pedido específico. Cambiar "1" por el id del pedido.
-      Respuesta esperada: 200 OK o 404 si no existe.
---------------------------------------------------------------------------------
-
-GET http://localhost:8080/api/pedidos/1
-
-
-================================================================================
-  SECCIÓN 4 — Escenarios de ERROR (obligatorios para el video)
-================================================================================
-
---------------------------------------------------------------------------------
-[4.1] ERROR 404 — Plato no existe en el menú
-      Intenta pedir un plato con id inexistente.
-      Demuestra comunicación svc-orders → svc-menu con error.
-      Respuesta esperada: 404
-      Mensaje: "El plato con id 999 no existe en el menú."
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -308,16 +136,7 @@ Content-Type: application/json
   "quantity": 1
 }
 
-
---------------------------------------------------------------------------------
-[4.2] ERROR 400 — Plato no disponible
-      Intenta pedir el Locro de papa marcado como available=false.
-      Ejecutar antes la sentencia [1.8] para desactivar el plato 2.
-      Respuesta esperada: 400
-      Mensaje: "El plato 'Locro de papa' no está disponible actualmente."
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -326,16 +145,7 @@ Content-Type: application/json
   "quantity": 1
 }
 
-
---------------------------------------------------------------------------------
-[4.3] ERROR 400 — Stock insuficiente
-      Solicita más unidades de las que hay en inventario.
-      Demuestra comunicación svc-orders → svc-inventory con error.
-      Respuesta esperada: 400
-      Mensaje: "Stock insuficiente para el plato '...'. Disponible: X, solicitado: 100."
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -344,16 +154,7 @@ Content-Type: application/json
   "quantity": 100
 }
 
-
---------------------------------------------------------------------------------
-[4.4] ERROR 404 — Sin inventario registrado
-      Intenta pedir un plato que existe en el menú pero sin stock registrado.
-      Crear plato 4 (Colada morada) con [1.4] pero NO registrar su inventario.
-      Respuesta esperada: 404
-      Mensaje: "No existe inventario registrado para el plato con id 4."
---------------------------------------------------------------------------------
-
-POST http://localhost:8080/api/pedidos
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -362,36 +163,6 @@ Content-Type: application/json
   "quantity": 1
 }
 
+GET http://localhost:8080/api/menu/dishes/999
 
---------------------------------------------------------------------------------
-[4.5] ERROR 404 — Obtener plato inexistente
-      Consulta un plato que no existe en svc-menu.
-      Respuesta esperada: 404 Not Found.
---------------------------------------------------------------------------------
-
-GET http://localhost:8080/api/menu/platos/999
-
-
---------------------------------------------------------------------------------
-[4.6] ERROR 404 — Obtener pedido inexistente
-      Consulta un pedido que no existe en svc-orders.
-      Respuesta esperada: 404 Not Found.
---------------------------------------------------------------------------------
-
-GET http://localhost:8080/api/pedidos/999
-
-
-================================================================================
-  SECCIÓN 5 — Flujo completo para la demostración (orden del video)
-================================================================================
-
-  PASO 1 → Sentencia [1.1]   Crear plato Seco de pollo
-  PASO 2 → Sentencia [2.1]   Registrar inventario (10 unidades)
-  PASO 3 → Sentencia [3.1]   Crear pedido válido (éxito) ✅
-  PASO 4 → Sentencia [4.1]   Crear pedido inválido (plato inexistente) ❌
-  PASO 5 → Sentencia [2.5]   Verificar stock decrementado (debe quedar en 8)
-  PASO 6 → Sentencia [3.3]   Listar todos los pedidos creados
-
-================================================================================
-  FIN DEL ARCHIVO — RestauranteTech Postman
-================================================================================
+GET http://localhost:8080/api/orders/999
