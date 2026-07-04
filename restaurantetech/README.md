@@ -2,14 +2,6 @@
 
 Microservicios: menu, orders, inventory + Nginx + Docker
 
-## Ejecutar
-
-```bash
-docker-compose up --build
-```
-
-Gateway: http://localhost:8080
-
 ## Integrantes
 
 - Manuel Bunay
