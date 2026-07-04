@@ -1,0 +1,497 @@
+{
+  "info": {
+    "name": "RestauranteTech - Microservicios",
+    "description": "Colección completa para la evaluación práctica de Microservicios.\n\nBase URL: http://localhost:8080 (API Gateway Nginx)\n\nOrden recomendado para la demostración:\n1. Crear platos (svc-menu)\n2. Registrar inventario (svc-inventory)\n3. Crear pedidos válidos (svc-orders)\n4. Probar escenarios de error",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "dishId",
+      "value": "1"
+    },
+    {
+      "key": "orderId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - svc-menu (Platos)",
+      "item": [
+        {
+          "name": "POST - Crear plato (Lomo saltado)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lomo saltado\",\n  \"description\": \"Plato típico peruano con arroz y papas fritas\",\n  \"category\": \"PLATO_FUERTE\",\n  \"price\": 15.50,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes",
+            "description": "Crea un plato en el menú. Respuesta esperada: 201 Created con el Dish incluyendo id."
+          }
+        },
+        {
+          "name": "POST - Crear plato (Ceviche - Entrada)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ceviche\",\n  \"description\": \"Pescado fresco marinado en limón\",\n  \"category\": \"ENTRADA\",\n  \"price\": 12.00,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes"
+          }
+        },
+        {
+          "name": "POST - Crear plato (Suspiro limeño - Postre)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Suspiro limeño\",\n  \"description\": \"Postre tradicional peruano\",\n  \"category\": \"POSTRE\",\n  \"price\": 8.50,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes"
+          }
+        },
+        {
+          "name": "POST - Crear plato (Chicha morada - Bebida)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Chicha morada\",\n  \"description\": \"Bebida tradicional de maíz morado\",\n  \"category\": \"BEBIDA\",\n  \"price\": 4.00,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes"
+          }
+        },
+        {
+          "name": "GET - Listar todos los platos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/menu/dishes",
+            "description": "Respuesta esperada: 200 OK con lista de todos los Dish."
+          }
+        },
+        {
+          "name": "GET - Obtener plato por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/menu/dishes/{{dishId}}",
+            "description": "Reemplazar dishId con el id del plato. Respuesta esperada: 200 OK o 404 si no existe."
+          }
+        },
+        {
+          "name": "PUT - Actualizar plato",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lomo saltado especial\",\n  \"description\": \"Versión premium con más porción\",\n  \"category\": \"PLATO_FUERTE\",\n  \"price\": 18.00,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes/{{dishId}}"
+          }
+        },
+        {
+          "name": "PUT - Marcar plato como NO disponible",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ceviche\",\n  \"description\": \"Pescado fresco marinado en limón\",\n  \"category\": \"ENTRADA\",\n  \"price\": 12.00,\n  \"available\": false\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes/2",
+            "description": "Usar para probar el error 400 al crear un pedido de un plato no disponible."
+          }
+        },
+        {
+          "name": "DELETE - Eliminar plato",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/menu/dishes/{{dishId}}",
+            "description": "Respuesta esperada: 204 No Content."
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - svc-inventory (Inventario)",
+      "item": [
+        {
+          "name": "POST - Registrar inventario plato 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 1,\n  \"stockQuantity\": 10\n}"
+            },
+            "url": "{{baseUrl}}/api/inventory",
+            "description": "Registrar stock antes de crear pedidos. Respuesta esperada: 201 Created."
+          }
+        },
+        {
+          "name": "POST - Registrar inventario plato 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 2,\n  \"stockQuantity\": 5\n}"
+            },
+            "url": "{{baseUrl}}/api/inventory"
+          }
+        },
+        {
+          "name": "POST - Registrar inventario plato 3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 3,\n  \"stockQuantity\": 8\n}"
+            },
+            "url": "{{baseUrl}}/api/inventory"
+          }
+        },
+        {
+          "name": "GET - Listar todo el inventario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/inventory",
+            "description": "Respuesta esperada: 200 OK con lista de InventoryItem."
+          }
+        },
+        {
+          "name": "GET - Consultar stock por dishId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/inventory/{{dishId}}",
+            "description": "Consulta el stock de un plato específico."
+          }
+        },
+        {
+          "name": "PUT - Decrementar stock manualmente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 2\n}"
+            },
+            "url": "{{baseUrl}}/api/inventory/{{dishId}}",
+            "description": "Decrementa stock directamente en svc-inventory. svc-orders también lo hace automáticamente al crear pedidos."
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - svc-orders (Pedidos)",
+      "item": [
+        {
+          "name": "POST - Crear pedido válido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 5\",\n  \"dishId\": 1,\n  \"quantity\": 2\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Pedido válido. svc-orders consulta svc-menu (precio/disponibilidad) y svc-inventory (stock). Respuesta esperada: 201 con total = price × quantity."
+          }
+        },
+        {
+          "name": "POST - Crear pedido (Mesa 10)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 10\",\n  \"dishId\": 1,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "GET - Listar todos los pedidos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Respuesta esperada: 200 OK con lista de todos los Order."
+          }
+        },
+        {
+          "name": "GET - Obtener pedido por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/orders/{{orderId}}",
+            "description": "Respuesta esperada: 200 OK o 404 si no existe."
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Escenarios de ERROR (demostración)",
+      "item": [
+        {
+          "name": "ERROR 404 - Plato no existe en el menú",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 1\",\n  \"dishId\": 999,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Respuesta esperada: 404\nMensaje: \"El plato con id 999 no existe en el menú.\""
+          }
+        },
+        {
+          "name": "ERROR 400 - Plato no disponible",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 2\",\n  \"dishId\": 2,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Primero ejecutar PUT para marcar plato 2 como available:false.\nRespuesta esperada: 400\nMensaje: \"El plato 'Ceviche' no está disponible actualmente.\""
+          }
+        },
+        {
+          "name": "ERROR 400 - Stock insuficiente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 9\",\n  \"dishId\": 1,\n  \"quantity\": 100\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Respuesta esperada: 400\nMensaje: \"Stock insuficiente para el plato '...'. Disponible: X, solicitado: 100.\""
+          }
+        },
+        {
+          "name": "ERROR 404 - Sin inventario registrado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 7\",\n  \"dishId\": 4,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Crear plato 4 SIN registrar inventario para él.\nRespuesta esperada: 404\nMensaje: \"No existe inventario registrado para el plato con id 4.\""
+          }
+        },
+        {
+          "name": "ERROR 404 - Obtener plato inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/menu/dishes/999",
+            "description": "Respuesta esperada: 404 Not Found."
+          }
+        },
+        {
+          "name": "ERROR 404 - Obtener pedido inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/orders/999",
+            "description": "Respuesta esperada: 404 Not Found."
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Flujo completo demostración (orden sugerido)",
+      "item": [
+        {
+          "name": "Paso 1 - Crear plato Lomo saltado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lomo saltado\",\n  \"description\": \"Plato típico peruano\",\n  \"category\": \"PLATO_FUERTE\",\n  \"price\": 15.50,\n  \"available\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/menu/dishes"
+          }
+        },
+        {
+          "name": "Paso 2 - Registrar inventario (10 unidades)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 1,\n  \"stockQuantity\": 10\n}"
+            },
+            "url": "{{baseUrl}}/api/inventory"
+          }
+        },
+        {
+          "name": "Paso 3 - Crear pedido válido (éxito)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 5\",\n  \"dishId\": 1,\n  \"quantity\": 2\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Demuestra comunicación entre microservicios. Total esperado: 31.0 (15.50 × 2)."
+          }
+        },
+        {
+          "name": "Paso 4 - Crear pedido inválido (plato inexistente)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Mesa 1\",\n  \"dishId\": 999,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{baseUrl}}/api/orders",
+            "description": "Demuestra manejo de error. Respuesta esperada: 404."
+          }
+        },
+        {
+          "name": "Paso 5 - Verificar stock decrementado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/inventory/1",
+            "description": "Después del pedido del Paso 3, el stock debe ser 8 (10 - 2)."
+          }
+        },
+        {
+          "name": "Paso 6 - Listar pedidos creados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/orders"
+          }
+        }
+      ]
+    }
+  ]
+}
