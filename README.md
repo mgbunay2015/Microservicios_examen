@@ -1,6 +1,4 @@
-# RestauranteTech
-
-Examen de Microservicios — UTI
+# Examen Microservicios - Restaurante
 
 ## Integrantes
 

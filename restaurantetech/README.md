@@ -1,6 +1,4 @@
-# RestauranteTech
-
-Microservicios: menu, orders, inventory + Nginx + Docker
+# Examen Microservicios - Restaurante
 
 ## Integrantes
 
