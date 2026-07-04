@@ -11,5 +11,3 @@ Microservicios: menu, orders, inventory + Nginx + Docker
 - `/api/menu/dishes`
 - `/api/orders`
 - `/api/inventory`
-
-Postman: `postman/sentencias_postman.txt`
