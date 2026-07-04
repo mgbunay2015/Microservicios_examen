@@ -1,30 +1,25 @@
-# Microservicios Examen — RestauranteTech
+# RestauranteTech
 
-Evaluación práctica de Microservicios — Universidad Tecnológica Israel.
+Examen de Microservicios — UTI
 
-**Repositorio:** https://github.com/mgbunay2015/Microservicios_examen
-
-## Contenido del repositorio
-
-| Carpeta / archivo | Descripción |
-|-------------------|-------------|
-| `restaurantetech/` | Código fuente: microservicios, Docker Compose, Nginx |
-| `video/` | Video de demostración y PDF del examen |
-| `restaurantetech/postman/` | Sentencias Postman para pruebas |
-
-## Ejecución rápida
+## Ejecutar
 
 ```bash
 cd restaurantetech
 docker-compose up --build
 ```
 
-API Gateway: **http://localhost:8080**
+Gateway: http://localhost:8080
 
-## Video de demostración
+## Integrantes
 
-Archivo: [`video/RestauranteTech_Demo_Completa.mp4`](video/RestauranteTech_Demo_Completa.mp4)
+- Nombre 1
+- Nombre 2
 
-## Documentación
+## Video
 
-Ver [`restaurantetech/README.md`](restaurantetech/README.md) para arquitectura, endpoints y escenarios de prueba.
+`video/RestauranteTech_Demo_Completa.mp4`
+
+## Repo
+
+https://github.com/mgbunay2015/Microservicios_examen
