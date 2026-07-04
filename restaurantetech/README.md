@@ -10,6 +10,10 @@ docker-compose up --build
 
 Gateway: http://localhost:8080
 
+## Integrantes
+
+- Manuel Bunay
+
 ## Endpoints
 
 - `/api/menu/dishes`

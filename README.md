@@ -13,8 +13,7 @@ Gateway: http://localhost:8080
 
 ## Integrantes
 
-- Nombre 1
-- Nombre 2
+- Manuel Bunay
 
 ## Video
 
