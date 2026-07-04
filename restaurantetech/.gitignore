@@ -6,4 +6,5 @@ target/
 .settings/
 .DS_Store
 RestauranteTech_Postman_Collection.json
+POSTMAN_REQUESTS.md
 postman/
